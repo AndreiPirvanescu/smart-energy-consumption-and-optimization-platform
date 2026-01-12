@@ -1,0 +1,1 @@
+# smart-energy-consumption-and-optimization-platform
