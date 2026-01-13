@@ -3,25 +3,18 @@ package com.example.smart_energy_consumption_and_optimization_platform.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "energy_readings")
+@Table(name = "tariffs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EnergyReading {
+public class Tariff {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double consumption;
-
-    private LocalDateTime timestamp;
-
-    @ManyToOne
-    @JoinColumn(name = "meter_id")
-    private EnergyMeter meter;
+    private String name;
+    private double ratePerKWh;
 }
