@@ -36,14 +36,14 @@ class UserServiceTest {
     @Test
     void createUser_success() {
         CreateUserRequestDTO dto = CreateUserRequestDTO.builder()
-                .name("Alice")
-                .email("alice@example.com")
+                .name("Alina")
+                .email("alina@yahoo.com")
                 .build();
 
         User savedUser = User.builder()
                 .id(1L)
-                .name("Alice")
-                .email("alice@example.com")
+                .name("Alina")
+                .email("alina@yahoo.com")
                 .build();
 
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.empty());
@@ -53,24 +53,24 @@ class UserServiceTest {
 
         assertNotNull(response);
         assertEquals(1L, response.getId());
-        assertEquals("Alice", response.getName());
-        assertEquals("alice@example.com", response.getEmail());
+        assertEquals("Alina", response.getName());
+        assertEquals("alina@yahoo.com", response.getEmail());
 
-        verify(userRepository).findByEmail("alice@example.com");
+        verify(userRepository).findByEmail("alina@yahoo.com");
         verify(userRepository).save(any(User.class));
     }
 
     @Test
     void createUser_emailAlreadyExists_throwsException() {
         CreateUserRequestDTO dto = CreateUserRequestDTO.builder()
-                .name("Bob")
-                .email("bob@example.com")
+                .name("Ion")
+                .email("ion@yahoo.com")
                 .build();
 
         User existingUser = User.builder()
                 .id(2L)
-                .name("Bob")
-                .email("bob@example.com")
+                .name("Ion")
+                .email("ion@yahoo.com")
                 .build();
 
         when(userRepository.findByEmail(dto.getEmail())).thenReturn(Optional.of(existingUser));
@@ -80,7 +80,7 @@ class UserServiceTest {
 
         assertEquals("Email already exists", exception.getMessage());
 
-        verify(userRepository).findByEmail("bob@example.com");
+        verify(userRepository).findByEmail("ion@yahoo.com");
         verify(userRepository, never()).save(any(User.class));
     }
 
@@ -90,15 +90,15 @@ class UserServiceTest {
 
         Building building1 = Building.builder()
                 .id(10L)
-                .name("Building A")
-                .address("123 Main St")
+                .name("Casa 1")
+                .address("Strada Mieilor")
                 .owner(User.builder().id(userId).build())
                 .build();
 
         Building building2 = Building.builder()
                 .id(11L)
-                .name("Building B")
-                .address("456 Elm St")
+                .name("Casa 2")
+                .address("Strada Palanca")
                 .owner(User.builder().id(userId).build())
                 .build();
 
@@ -110,11 +110,11 @@ class UserServiceTest {
         assertNotNull(buildings);
         assertEquals(2, buildings.size());
 
-        assertEquals("Building A", buildings.get(0).getName());
-        assertEquals("123 Main St", buildings.get(0).getAddress());
+        assertEquals("Casa 1", buildings.get(0).getName());
+        assertEquals("Strada Mieilor", buildings.get(0).getAddress());
 
-        assertEquals("Building B", buildings.get(1).getName());
-        assertEquals("456 Elm St", buildings.get(1).getAddress());
+        assertEquals("Casa 2", buildings.get(1).getName());
+        assertEquals("Strada Palanca", buildings.get(1).getAddress());
 
         verify(buildingRepository).findByOwnerId(userId);
     }

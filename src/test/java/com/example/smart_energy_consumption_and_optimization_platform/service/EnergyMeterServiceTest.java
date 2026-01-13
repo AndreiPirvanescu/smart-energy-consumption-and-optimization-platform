@@ -33,7 +33,7 @@ class EnergyMeterServiceTest {
 
         EnergyReading r2 = EnergyReading.builder()
                 .id(2L)
-                .consumption(250.0) // highest
+                .consumption(250.0)
                 .timestamp(LocalDateTime.now())
                 .build();
 
