@@ -2,11 +2,15 @@ package com.example.smart_energy_consumption_and_optimization_platform.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateUserRequestDTO {
     @NotBlank(message = "Name must not be empty")
     private String name;
